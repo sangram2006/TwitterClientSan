@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TwitterClientSan</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">CQxouXOSXh1gYOoTRKVpb6E18</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">rEOKZCzxkUU3DJnryIdhRzv0zTQHRbHpaeflNprbA8344r2jO5</string>
+    <string name="please_wait_for_setup">Please Wait for setup..</string>
+
+</resources>
