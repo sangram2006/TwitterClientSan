@@ -11,29 +11,9 @@ import com.twitter.sdk.android.core.TwitterSession;
 import twitter.com.twitterclientsan.showtweets.contract.ShowTweetsContract;
 
 public class ShowTweetsPresenter {
-    ShowTweetsContract view;
+    private ShowTweetsContract view;
 
     public ShowTweetsPresenter(ShowTweetsContract view) {
         this.view = view;
     }
-
-    public void doLogin() {
-        new Callback<TwitterSession>() {
-            @Override
-            public void success(Result<TwitterSession> result) {
-                // Do something with result, which provides a TwitterSession for making API calls
-                TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-                view.onSucess(session.getUserName());
-
-            }
-
-            @Override
-            public void failure(TwitterException exception) {
-                // Do something on failure
-                view.onFailure(exception.getMessage());
-                Log.d("Sangram", "" + exception);
-            }
-        };
-    }
-
 }

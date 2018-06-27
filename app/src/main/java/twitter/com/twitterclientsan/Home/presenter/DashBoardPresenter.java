@@ -1,4 +1,4 @@
-package twitter.com.twitterclientsan.Home.presenter;
+package twitter.com.twitterclientsan.home.presenter;
 
 public class DashBoardPresenter {
 }

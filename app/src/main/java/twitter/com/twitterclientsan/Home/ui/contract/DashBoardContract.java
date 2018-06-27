@@ -1,4 +1,4 @@
-package twitter.com.twitterclientsan.Home.ui.contract;
+package twitter.com.twitterclientsan.home.ui.contract;
 
 public interface DashBoardContract {
     /**

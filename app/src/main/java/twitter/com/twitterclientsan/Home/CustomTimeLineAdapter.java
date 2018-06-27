@@ -1,4 +1,4 @@
-package twitter.com.twitterclientsan.Home;
+package twitter.com.twitterclientsan.home;
 
 import android.content.Context;
 import android.util.Log;

@@ -10,4 +10,5 @@ public interface ShowTweetsContract {
      * Failure response
      */
     void onFailure(String errorMessage);
+
 }

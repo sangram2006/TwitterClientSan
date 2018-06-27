@@ -1,10 +1,11 @@
 package twitter.com.twitterclientsan.account.ui.contract;
 
+
 public interface LoginContract {
     /**
      * Success Response
      */
-    void onSucess(String userName);
+    void onSuccess(String userName);
 
     /**
      * Failure response

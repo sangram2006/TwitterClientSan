@@ -3,6 +3,12 @@ package twitter.com.twitterclientsan.splash.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+
+import com.twitter.sdk.android.core.DefaultLogger;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterConfig;
 
 import twitter.com.twitterclientsan.R;
 import twitter.com.twitterclientsan.account.ui.LoginActivity;
@@ -17,6 +23,7 @@ public class SplashActivity extends TwitterBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializeTwitter();
         setContentView(R.layout.layout_splash);
 
         new Handler().postDelayed(new Runnable() {

@@ -1,9 +1,10 @@
-package twitter.com.twitterclientsan.Home.ui;
+package twitter.com.twitterclientsan.home.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,19 +21,20 @@ import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TimelineResult;
-import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
-import com.twitter.sdk.android.tweetui.TweetTimelineRecyclerViewAdapter;
 
-import twitter.com.twitterclientsan.Home.AdapterListener;
-import twitter.com.twitterclientsan.Home.CustomTimeLineAdapter;
+import twitter.com.twitterclientsan.home.AdapterListener;
+import twitter.com.twitterclientsan.home.CustomTimeLineAdapter;
 import twitter.com.twitterclientsan.R;
 import twitter.com.twitterclientsan.common.ui.TwitterBaseActivity;
-import twitter.com.twitterclientsan.showtweets.ui.ShwoTweetsActivity;
+import twitter.com.twitterclientsan.showtweets.ui.ShowDetailsTweetsActivity;
 
-public class DashBoardActivity extends TwitterBaseActivity implements AdapterListener {
+public class DashBoardActivity extends TwitterBaseActivity implements AdapterListener, View.OnClickListener {
     TextView textView;
     RecyclerView recyclerView;
+    SwipeRefreshLayout swipeLayout;
+    CustomTimeLineAdapter tweetTimelineRecyclerViewAdapter;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +42,13 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
         String userName = getIntent().getStringExtra("username");
         textView = findViewById(R.id.welcome_text);
         //Welcome Text
-        textView.setText("Welcome to home page @" + userName);
+        textView.setText(getString(R.string.welcome_text) + userName);
 
         recyclerView = findViewById(R.id.recycleTweets);
         //Set layout manager for recycle view
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final SwipeRefreshLayout swipeLayout = findViewById(R.id.swipeContainer);
+
+        swipeLayout = findViewById(R.id.swipeContainer);
 
         //Create timeline builder for twitter and max request 10
         final SearchTimeline timeline = new SearchTimeline.Builder()
@@ -54,11 +57,25 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
                 .build();
 
         //set the custom adapter
-        final CustomTimeLineAdapter tweetTimelineRecyclerViewAdapter = new CustomTimeLineAdapter(this, timeline, this);
+        tweetTimelineRecyclerViewAdapter = new CustomTimeLineAdapter(this, timeline, this);
         recyclerView.setAdapter(tweetTimelineRecyclerViewAdapter);
 
         //set refreshLayout on adapter. on update of data twitter SDK will take care of notify data chages
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeLayout.setOnRefreshListener(pullToRefresh());
+
+        FloatingActionButton compose = findViewById(R.id.compose);
+        compose.setOnClickListener(this);
+    }
+
+    @Override
+    public void showDetails(long id) {
+        Intent intent = new Intent(this, ShowDetailsTweetsActivity.class);
+        intent.putExtra("tweetId", id);
+        startActivity(intent);
+    }
+
+    private SwipeRefreshLayout.OnRefreshListener pullToRefresh() {
+        return new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 swipeLayout.setRefreshing(true);
@@ -75,23 +92,21 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
                     }
                 });
             }
-        });
-
+        };
     }
 
     @Override
-    public void showDetails(long id) {
-        Intent intent = new Intent(this, ShwoTweetsActivity.class);
-        intent.putExtra("tweetId", id);
-        startActivity(intent);
-
-//        final TwitterSession session = TwitterCore.getInstance().getSessionManager()
-//                .getActiveSession();
-//        final Intent intentt = new ComposerActivity.Builder(DashBoardActivity.this)
-//                .session(session)
-//                .text("Love where you work")
-//                .hashtags("#twitter")
-//                .createIntent();
-//        startActivity(intent);
+    public void onClick(View v) {
+        if (v.getId() == R.id.compose) {
+            // Start the Twitter SDK composeActivity
+            final TwitterSession session = TwitterCore.getInstance().getSessionManager()
+                    .getActiveSession();
+            final Intent intent = new ComposerActivity.Builder(DashBoardActivity.this)
+                    .session(session)
+                    .text("Love where you work")
+                    .hashtags("#twitter")
+                    .createIntent();
+            startActivity(intent);
+        }
     }
 }
