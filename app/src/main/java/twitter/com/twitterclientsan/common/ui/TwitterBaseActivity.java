@@ -17,12 +17,10 @@ public class TwitterBaseActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * Initialize twitter instance
+     */
     protected void initializeTwitter() {
-        TwitterConfig config = new TwitterConfig.Builder(this)
-                .logger(new DefaultLogger(Log.DEBUG))
-                .twitterAuthConfig(new TwitterAuthConfig("CONSUMER_KEY", "CONSUMER_SECRET"))
-                .debug(true)
-                .build();
-        Twitter.initialize(config);
+        Twitter.initialize(this);
     }
 }
