@@ -40,4 +40,5 @@ final TwitterSession session = TwitterCore.getInstance().getSessionManager()
                     .createIntent();
             startActivity(intent);
  ```   
-            
+ 
+ ![alt text](https://github.com/sangram2006/TwitterClientSan/blob/master/flow.png)           
