@@ -8,6 +8,8 @@ import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterSession;
 
 public class TwitterBaseActivity extends AppCompatActivity {
 
@@ -17,10 +19,13 @@ public class TwitterBaseActivity extends AppCompatActivity {
 
     }
 
-    /*
-     * Initialize twitter instance
+    /**
+     * get authenticates user session
+     *
+     * @return session
      */
-    protected void initializeTwitter() {
-        Twitter.initialize(this);
+    protected TwitterSession getTwitterSession() {
+        TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+        return session;
     }
 }

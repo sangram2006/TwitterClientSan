@@ -7,4 +7,5 @@ package twitter.com.twitterclientsan.common;
 
 public class Constants {
     public static final long SPLASH_TIME_OUT = 3000;
+    public static final String USER_NAME = "username";
 }

@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import twitter.com.twitterclientsan.R;
+import twitter.com.twitterclientsan.common.Constants;
 import twitter.com.twitterclientsan.home.ui.DashBoardActivity;
 import twitter.com.twitterclientsan.account.presenter.LoginPresenter;
 import twitter.com.twitterclientsan.account.ui.contract.LoginContract;
@@ -20,7 +21,6 @@ public class LoginActivity extends TwitterBaseActivity implements LoginContract 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeTwitter();
         setContentView(R.layout.activity_login);
         loginButton = findViewById(R.id.login_button);
         loginPresenter = new LoginPresenter(this);
@@ -38,8 +38,9 @@ public class LoginActivity extends TwitterBaseActivity implements LoginContract 
     @Override
     public void onSuccess(String userName) {
         Intent intent = new Intent(this, DashBoardActivity.class);
-        intent.putExtra("username", userName);
+        intent.putExtra(Constants.USER_NAME, userName);
         startActivity(intent);
+        finish();
     }
 
     @Override

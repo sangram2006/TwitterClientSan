@@ -22,6 +22,7 @@ import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TimelineResult;
 
+import twitter.com.twitterclientsan.common.Constants;
 import twitter.com.twitterclientsan.home.AdapterListener;
 import twitter.com.twitterclientsan.home.CustomTimeLineAdapter;
 import twitter.com.twitterclientsan.R;
@@ -39,7 +40,7 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_dashboard);
-        String userName = getIntent().getStringExtra("username");
+        String userName = getIntent().getStringExtra(Constants.USER_NAME);
         textView = findViewById(R.id.welcome_text);
         //Welcome Text
         textView.setText(getString(R.string.welcome_text) + userName);
