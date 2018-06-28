@@ -27,7 +27,8 @@ Below are the highlights for sample.
 - On Login success  make request for 10 tweets in his/her feed
 
 - Display specific tweet details from recycleview tweets item using passing twitterID screen: author, number of likes and retweets, date
-
+- Pull to refresh for update the new data
+- Save the data using file can be used at the time of offline.(Note: can be implemented by using DB)
 - Compose new tweets using internal api from Twitter SDK exmpale
 
 ```java
@@ -41,7 +42,15 @@ final TwitterSession session = TwitterCore.getInstance().getSessionManager()
             startActivity(intent);
  ```   
  
- ![alt text](https://github.com/sangram2006/TwitterClientSan/blob/master/flow.png)    
+ # Setup
+ ```java
+Use callback url as twittersdk:// on app.twitter.com settings
+Form app side add app key on string resorunce file
+<string name="com.twitter.sdk.android.CONSUMER_KEY">consumer key</string>
+<string name="com.twitter.sdk.android.CONSUMER_SECRET"consumer secret</string>
+ ```
+ 
+![alt text](https://github.com/sangram2006/TwitterClientSan/blob/master/flow.png)    
  
  ### Images
  ![alt text](https://github.com/sangram2006/TwitterClientSan/blob/master/Login.png)  
