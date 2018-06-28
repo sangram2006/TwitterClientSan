@@ -7,6 +7,7 @@ import twitter.com.twitterclientsan.splash.ui.contract.SplashContract;
 
 /**
  * Created by Sangram Mohanty on 6/26/2018.
+ * Splash screen presenter
  */
 public class SplashPresenter {
     SplashContract view;
@@ -16,9 +17,9 @@ public class SplashPresenter {
     }
 
     /*
-     * Start session
+     * Check session active or not
      */
-    public void startSession() {
+    public void isSessionActive() {
         TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
         if (session == null) {
             view.launchLogin();

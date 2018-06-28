@@ -11,7 +11,8 @@ import com.twitter.sdk.android.core.TwitterConfig;
 import twitter.com.twitterclientsan.R;
 
 /**
- * Created by Sangram Mohanty on 6/26/2018.
+ * Created by Sangram Mohanty on 6/27/2018.
+ * Application initialize the twitter instance
  */
 public class TwitterClientApplication extends Application {
 

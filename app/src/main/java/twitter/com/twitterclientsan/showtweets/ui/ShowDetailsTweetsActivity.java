@@ -18,6 +18,10 @@ import twitter.com.twitterclientsan.account.ui.LoginActivity;
 import twitter.com.twitterclientsan.common.Constants;
 import twitter.com.twitterclientsan.common.ui.TwitterBaseActivity;
 
+/**
+ * Created by Sangram Mohanty on 6/26/2018.
+ * Details tweet activity
+ */
 public class ShowDetailsTweetsActivity extends TwitterBaseActivity {
 
 

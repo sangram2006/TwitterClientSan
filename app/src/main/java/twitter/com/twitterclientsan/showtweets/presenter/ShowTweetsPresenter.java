@@ -10,6 +10,10 @@ import com.twitter.sdk.android.core.TwitterSession;
 
 import twitter.com.twitterclientsan.showtweets.contract.ShowTweetsContract;
 
+/**
+ * Created by Sangram Mohanty on 6/26/2018.
+ * Details presenter
+ */
 public class ShowTweetsPresenter {
     private ShowTweetsContract view;
 

@@ -36,6 +36,12 @@ import twitter.com.twitterclientsan.home.presenter.DashBoardPresenter;
 import twitter.com.twitterclientsan.showtweets.ui.ShowDetailsTweetsActivity;
 import twitter.com.twitterclientsan.storage.InternalStorage;
 
+/**
+ * Created by Sangram Mohanty on 6/27/2018.
+ * Dash board activity show the max 10 list per request , Pull to refresh for new items, used
+ * searchTimeLine for server response and FixedTimeLine for stored data.
+ */
+
 public class DashBoardActivity extends TwitterBaseActivity implements AdapterListener, View.OnClickListener {
     TextView textView;
     RecyclerView recyclerView;
@@ -116,6 +122,9 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
         startActivity(intent);
     }
 
+    /*
+     * Listener for pull to refresh
+     */
     private SwipeRefreshLayout.OnRefreshListener pullToRefresh() {
         return new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -130,7 +139,7 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
                     @SuppressLint("ShowToast")
                     @Override
                     public void failure(TwitterException exception) {
-                        Toast.makeText(DashBoardActivity.this, "Something wrong", Toast.LENGTH_LONG);
+                        Toast.makeText(DashBoardActivity.this, R.string.error_msg, Toast.LENGTH_LONG);
                     }
                 });
             }
@@ -152,6 +161,10 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
         }
     }
 
+    /*
+     * Get Search time with query #twitter this is set for server response
+     * @return searchTimeLine
+     */
     private SearchTimeline getSearchTimeLine() {
         return new SearchTimeline.Builder()
                 .query("#twitter")
@@ -161,6 +174,10 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
     }
 
 
+    /*
+     * Get FixedTweetTimeline with query #twitter this is set for local data
+     * @return FixedTweetTimeline
+     */
     private FixedTweetTimeline getFixedTimeline() {
         return new FixedTweetTimeline.Builder()
                 .setTweets(dashBoardPresenter.getTweets())

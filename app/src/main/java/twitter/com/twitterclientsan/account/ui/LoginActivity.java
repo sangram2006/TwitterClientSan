@@ -13,6 +13,10 @@ import twitter.com.twitterclientsan.account.presenter.LoginPresenter;
 import twitter.com.twitterclientsan.account.ui.contract.LoginContract;
 import twitter.com.twitterclientsan.common.ui.TwitterBaseActivity;
 
+/**
+ * Created by Sangram Mohanty on 6/27/2018.
+ * Login screen, used twitter button for login
+ */
 public class LoginActivity extends TwitterBaseActivity implements LoginContract {
 
     TwitterLoginButton loginButton;

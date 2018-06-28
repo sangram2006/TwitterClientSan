@@ -10,7 +10,10 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
-
+/**
+ * Created by Sangram Mohanty on 6/27/2018.
+ * Base activity implemented common functionality for every screen
+ */
 public class TwitterBaseActivity extends AppCompatActivity {
 
     @Override

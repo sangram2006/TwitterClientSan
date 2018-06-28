@@ -12,6 +12,10 @@ import com.twitter.sdk.android.tweetui.Timeline;
 import com.twitter.sdk.android.tweetui.TweetLinkClickListener;
 import com.twitter.sdk.android.tweetui.TweetTimelineRecyclerViewAdapter;
 
+/**
+ * Created by Sangram Mohanty on 6/27/2018.
+ * Custom adapter for on item click listener
+ */
 public class CustomTimeLineAdapter extends TweetTimelineRecyclerViewAdapter {
     AdapterListener adapterListener;
 

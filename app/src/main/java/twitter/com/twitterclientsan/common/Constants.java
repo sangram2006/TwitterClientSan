@@ -2,7 +2,8 @@ package twitter.com.twitterclientsan.common;
 
 
 /**
- * Created by Sangram Mohanty on 6/26/2018.
+ * Created by Sangram Mohanty on 6/27/2018.
+ * Constants
  */
 
 public class Constants {

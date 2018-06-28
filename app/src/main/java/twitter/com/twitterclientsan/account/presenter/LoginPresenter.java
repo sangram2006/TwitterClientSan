@@ -10,7 +10,10 @@ import com.twitter.sdk.android.core.TwitterSession;
 
 import twitter.com.twitterclientsan.account.ui.contract.LoginContract;
 
-
+/**
+ * Created by Sangram Mohanty on 6/26/2018.
+ * Login presenter
+ */
 public class LoginPresenter {
     private LoginContract view;
 
@@ -18,6 +21,10 @@ public class LoginPresenter {
         this.view = view;
     }
 
+    /*
+     * Invoke twitter login
+     * @return call back twitter session
+     */
     public Callback<TwitterSession> doLogin() {
         return new Callback<TwitterSession>() {
             @Override

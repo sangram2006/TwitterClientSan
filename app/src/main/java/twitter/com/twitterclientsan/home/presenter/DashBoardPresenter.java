@@ -13,6 +13,10 @@ import twitter.com.twitterclientsan.connectivity.ConnectionManager;
 
 import static twitter.com.twitterclientsan.storage.InternalStorage.readObject;
 
+/**
+ * Created by Sangram Mohanty on 6/27/2018.
+ * Dash board presenter
+ */
 public class DashBoardPresenter {
     Context context;
 
@@ -20,6 +24,10 @@ public class DashBoardPresenter {
         this.context = context;
     }
 
+    /*
+     * get connection available or not
+     * @return boolean
+     */
     public boolean isConnectionAvailable() {
         if (ConnectionManager.isNetworkAvailable(context)) {
             return true;
@@ -30,6 +38,10 @@ public class DashBoardPresenter {
         return true;
     }
 
+    /*
+     * get the stored tweet data
+     * @return list of tweet
+     */
     public List<Tweet> getTweets() {
         List<Tweet> list = null;
         try {

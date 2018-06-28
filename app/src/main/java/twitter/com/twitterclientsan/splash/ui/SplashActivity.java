@@ -3,14 +3,6 @@ package twitter.com.twitterclientsan.splash.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-
-import com.twitter.sdk.android.core.DefaultLogger;
-import com.twitter.sdk.android.core.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterConfig;
-import com.twitter.sdk.android.core.TwitterCore;
-import com.twitter.sdk.android.core.TwitterSession;
 
 import twitter.com.twitterclientsan.R;
 import twitter.com.twitterclientsan.account.ui.LoginActivity;
@@ -22,6 +14,7 @@ import twitter.com.twitterclientsan.splash.ui.contract.SplashContract;
 
 /**
  * Created by Sangram Mohanty on 6/26/2018.
+ * Splash screen as per active session route to login or dashboard screen
  */
 
 public class SplashActivity extends TwitterBaseActivity implements SplashContract {
@@ -45,19 +38,25 @@ public class SplashActivity extends TwitterBaseActivity implements SplashContrac
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                splashPresenter.startSession();
+                splashPresenter.isSessionActive();
                 // close this activity
                 finish();
             }
         }, Constants.SPLASH_TIME_OUT);
     }
 
+    /*
+     * Move to login screen
+     */
     @Override
     public void launchLogin() {
         Intent loginIntent = new Intent(SplashActivity.this, LoginActivity.class);
         startActivity(loginIntent);
     }
 
+    /*
+     * Move Dashboard screen
+     */
     @Override
     public void launchDashboard(String userName) {
         Intent dashboardIntent = new Intent(SplashActivity.this, DashBoardActivity.class);
