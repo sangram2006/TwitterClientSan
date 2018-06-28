@@ -19,21 +19,31 @@ import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
+import com.twitter.sdk.android.tweetui.FixedTweetTimeline;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TimelineResult;
+import com.twitter.sdk.android.tweetui.TweetTimelineRecyclerViewAdapter;
 
-import twitter.com.twitterclientsan.common.Constants;
-import twitter.com.twitterclientsan.home.AdapterListener;
-import twitter.com.twitterclientsan.home.CustomTimeLineAdapter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Locale;
+
 import twitter.com.twitterclientsan.R;
+import twitter.com.twitterclientsan.common.Constants;
 import twitter.com.twitterclientsan.common.ui.TwitterBaseActivity;
+import twitter.com.twitterclientsan.home.AdapterListener;
+import twitter.com.twitterclientsan.home.presenter.DashBoardPresenter;
 import twitter.com.twitterclientsan.showtweets.ui.ShowDetailsTweetsActivity;
+import twitter.com.twitterclientsan.storage.InternalStorage;
 
 public class DashBoardActivity extends TwitterBaseActivity implements AdapterListener, View.OnClickListener {
     TextView textView;
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeLayout;
-    CustomTimeLineAdapter tweetTimelineRecyclerViewAdapter;
+    TweetTimelineRecyclerViewAdapter tweetTimelineRecyclerViewAdapter;
+    SearchTimeline timeline;
+    FixedTweetTimeline fixedTweetTimeline;
+    DashBoardPresenter dashBoardPresenter;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -42,6 +52,9 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
         setContentView(R.layout.layout_dashboard);
         String userName = getIntent().getStringExtra(Constants.USER_NAME);
         textView = findViewById(R.id.welcome_text);
+
+        //Initialize presenter
+        dashBoardPresenter = new DashBoardPresenter(this);
         //Welcome Text
         textView.setText(getString(R.string.welcome_text) + userName);
 
@@ -52,13 +65,18 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
         swipeLayout = findViewById(R.id.swipeContainer);
 
         //Create timeline builder for twitter and max request 10
-        final SearchTimeline timeline = new SearchTimeline.Builder()
-                .query("#twitter")
-                .maxItemsPerRequest(10)
-                .build();
+        timeline = getSearchTimeLine();
+        registerTimeLine();
 
-        //set the custom adapter
-        tweetTimelineRecyclerViewAdapter = new CustomTimeLineAdapter(this, timeline, this);
+        //get data from storage
+        fixedTweetTimeline = getFixedTimeline();
+
+        //create adapter for RecyclerView
+        tweetTimelineRecyclerViewAdapter = new TweetTimelineRecyclerViewAdapter.Builder(this)
+                .setTimeline(dashBoardPresenter.isConnectionAvailable() ? timeline : fixedTweetTimeline)
+                .setViewStyle(R.style.tw__TweetLightWithActionsStyle)
+                .build();
+        //Set adapter
         recyclerView.setAdapter(tweetTimelineRecyclerViewAdapter);
 
         //set refreshLayout on adapter. on update of data twitter SDK will take care of notify data chages
@@ -68,10 +86,33 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
         compose.setOnClickListener(this);
     }
 
+    /*
+     * Store tweets for offline use
+     */
+    private void registerTimeLine() {
+        final ArrayList<Tweet> tweets = new ArrayList<>();
+        timeline.next(null, new Callback<TimelineResult<Tweet>>() {
+            @Override
+            public void success(Result<TimelineResult<Tweet>> result) {
+                tweets.addAll(result.data.items);
+                try {
+                    InternalStorage.writeObject(DashBoardActivity.this, Constants.STORE_KEY, tweets);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                exception.printStackTrace();
+            }
+        });
+    }
+
     @Override
     public void showDetails(long id) {
         Intent intent = new Intent(this, ShowDetailsTweetsActivity.class);
-        intent.putExtra("tweetId", id);
+        intent.putExtra(Constants.TWITTER_ID, id);
         startActivity(intent);
     }
 
@@ -110,4 +151,20 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
             startActivity(intent);
         }
     }
+
+    private SearchTimeline getSearchTimeLine() {
+        return new SearchTimeline.Builder()
+                .query("#twitter")
+                .maxItemsPerRequest(10)
+                .languageCode(Locale.ENGLISH.getLanguage())
+                .build();
+    }
+
+
+    private FixedTweetTimeline getFixedTimeline() {
+        return new FixedTweetTimeline.Builder()
+                .setTweets(dashBoardPresenter.getTweets())
+                .build();
+    }
+
 }

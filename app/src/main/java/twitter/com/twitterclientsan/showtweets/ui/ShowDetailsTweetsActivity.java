@@ -15,6 +15,7 @@ import com.twitter.sdk.android.tweetui.TweetView;
 
 import twitter.com.twitterclientsan.R;
 import twitter.com.twitterclientsan.account.ui.LoginActivity;
+import twitter.com.twitterclientsan.common.Constants;
 import twitter.com.twitterclientsan.common.ui.TwitterBaseActivity;
 
 public class ShowDetailsTweetsActivity extends TwitterBaseActivity {
@@ -26,7 +27,7 @@ public class ShowDetailsTweetsActivity extends TwitterBaseActivity {
         setContentView(R.layout.layout_show_tweets_details);
         final FrameLayout myLayout
                 = findViewById(R.id.bike_tweet);
-        final long tweetId = getIntent().getLongExtra("tweetID", 0);
+        final long tweetId = getIntent().getLongExtra(Constants.TWITTER_ID, 0);
 
         //Load the tweet details and option to show the button(share, favorite)
         TweetUtils.loadTweet(tweetId, new Callback<Tweet>() {
