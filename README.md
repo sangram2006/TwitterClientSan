@@ -55,5 +55,5 @@ Form app side add app key on string resorunce file
  ### Images
  ![alt text](https://github.com/sangram2006/TwitterClientSan/blob/master/Login.png)  
  ![alt text](https://github.com/sangram2006/TwitterClientSan/blob/master/UserAuth.png)  
- ![alt text](https://github.com/sangram2006/TwitterClientSan/blob/master/List_Of_tweets.png)  
+ ![alt text](https://github.com/sangram2006/TwitterClientSan/blob/master/home_screen.png)  
  ![alt text](https://github.com/sangram2006/TwitterClientSan/blob/master/Compose.png)  
