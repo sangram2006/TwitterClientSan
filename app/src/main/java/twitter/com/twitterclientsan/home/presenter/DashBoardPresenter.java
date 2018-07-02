@@ -32,10 +32,7 @@ public class DashBoardPresenter {
         if (ConnectionManager.isNetworkAvailable(context)) {
             return true;
         }
-        if (getTweets() != null) {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     /*
@@ -43,12 +40,10 @@ public class DashBoardPresenter {
      * @return list of tweet
      */
     public List<Tweet> getTweets() {
-        List<Tweet> list = null;
+        ArrayList<Tweet> list = null;
         try {
-            list = (ArrayList<Tweet>) readObject(context, Constants.STORE_KEY);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+            list = readObject(context, Constants.STORE_KEY);
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return list;

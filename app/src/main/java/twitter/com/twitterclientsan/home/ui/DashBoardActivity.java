@@ -74,8 +74,9 @@ public class DashBoardActivity extends TwitterBaseActivity implements AdapterLis
         timeline = getSearchTimeLine();
         registerTimeLine();
 
-        //get data from storage
-        fixedTweetTimeline = getFixedTimeline();
+        //get data from storage if no network
+        if (!dashBoardPresenter.isConnectionAvailable())
+            fixedTweetTimeline = getFixedTimeline();
 
         //create adapter for RecyclerView
         tweetTimelineRecyclerViewAdapter = new TweetTimelineRecyclerViewAdapter.Builder(this)
