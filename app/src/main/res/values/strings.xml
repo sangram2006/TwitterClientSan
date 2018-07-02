@@ -7,5 +7,11 @@
     <string name="please_wait_for_setup">Please Wait for setup..</string>
     <string name="welcome_text">Welcome to home page @</string>
     <string name="error_msg">Something wrong</string>
+    <string name="default_value">0</string>
+    <string name="tweets">Tweets:</string>
+    <string name="following">Following:</string>
+    <string name="followers">Followers:</string>
+    <string name="try_again">Try again.</string>
+    <string name="authenticate">Please authenticate</string>
 
 </resources>

@@ -10,4 +10,6 @@ public class Constants {
     public static final long SPLASH_TIME_OUT = 3000;
     public static final String USER_NAME = "username";
     public static final String STORE_KEY = "store";
-    public static final String TWITTER_ID = "twitterID";}
+    public static final String TWITTER_ID = "twitterID";
+    public static final String TAG = "Twitter Client";
+}
