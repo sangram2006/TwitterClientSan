@@ -24,11 +24,12 @@ Below are the highlights for sample.
 
 - Login: Connect with twitter using API Keys
 
-- On Login success  make request for 10 tweets in his/her feed
+- On Login success  make request for 10 tweets in his/her feed (you can use UserTimeline, SearchTimeline, FixedTweetTimeline etc..)
 
 - Display specific tweet details from recycleview tweets item using passing twitterID screen: author, number of likes and retweets, date
 - Pull to refresh for update the new data
-- Save the data using file can be used at the time of offline.(Note: can be implemented by using DB)
+- Cache the data using java file using gson which can be used for offline.
+- Display profile image, number of tweets, how many followers and following.
 - Compose new tweets using internal api from Twitter SDK exmpale
 
 ```java
